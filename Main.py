@@ -3,7 +3,7 @@ import json
 import time
 import DatabaseController
 import pandas as pd
-from flask import Flask, request
+from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
@@ -39,6 +39,10 @@ def get_users_route():
         return pd.DataFrame(users, columns=['id', 'name', 'birth', 'cpf', 'height']).to_json(orient="records")
     else:
         return str(users), 400
+
+@app.route('/')
+def home():
+    return render_template("home.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
